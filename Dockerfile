@@ -20,7 +20,7 @@ gauge install spectacle
 
 ## Gradle
 ENV GRADLE_HOME /opt/gradle
-ENV GRADLE_VERSION 4.5.1
+ENV GRADLE_VERSION 4.6
 RUN wget --output-document=gradle.zip  https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
 RUN unzip gradle.zip \
 	&& rm gradle.zip \
