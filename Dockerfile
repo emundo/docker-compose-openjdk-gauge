@@ -12,12 +12,6 @@ RUN apt-get update && apt-get install -y \
 ## Docker static binaries
 RUN curl -s https://download.docker.com/linux/static/stable/`uname -m`/docker-17.09.0-ce.tgz | tar xzvf - -C /usr/local/bin/ --strip-components=1
 
-## Install Gauge to /usr/local/bin
-RUN curl -SsL https://downloads.gauge.org/stable | sh
-RUN gauge install java && \  
-	gauge install html-report && \
-	gauge install spectacle
-
 ## Gradle
 ENV GRADLE_HOME /opt/gradle
 ENV GRADLE_VERSION 4.6
@@ -26,7 +20,14 @@ RUN unzip gradle.zip \
 	&& rm gradle.zip \
 	&& mv "gradle-${GRADLE_VERSION}" "${GRADLE_HOME}/" \
 	&& ln --symbolic "${GRADLE_HOME}/bin/gradle" /usr/bin/gradle
-
+	
+## Install Gauge to /usr/local/bin
+RUN curl -SsL https://downloads.gauge.org/stable | sh && \	
+	gauge install screenshot && \
+	gauge install java && \  
+	gauge install html-report &&\
+	gauge install xml-report &&\
+	gauge install spectacle
 
 ## emundo User
 RUN addgroup --gid 1101 rancher && \
