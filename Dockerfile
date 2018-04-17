@@ -13,10 +13,10 @@ RUN apt-get update && apt-get install -y \
 RUN curl -s https://download.docker.com/linux/static/stable/`uname -m`/docker-17.09.0-ce.tgz | tar xzvf - -C /usr/local/bin/ --strip-components=1
 
 ## Install Gauge to /usr/local/bin
-RUN curl -SsL https://downloads.gauge.org/stable | sh && \
-gauge install java && \ 
-gauge install html-report && \
-gauge install spectacle
+RUN curl -SsL https://downloads.gauge.org/stable | sh
+RUN gauge install java && \  
+	gauge install html-report && \
+	gauge install spectacle
 
 ## Gradle
 ENV GRADLE_HOME /opt/gradle
