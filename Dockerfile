@@ -22,12 +22,7 @@ RUN unzip gradle.zip \
 	&& ln --symbolic "${GRADLE_HOME}/bin/gradle" /usr/bin/gradle
 	
 ## Install Gauge to /usr/local/bin
-RUN curl -SsL https://downloads.gauge.org/stable | sh && \	
-	gauge install screenshot && \
-	gauge install java && \  
-	gauge install html-report &&\
-	gauge install xml-report &&\
-	gauge install spectacle
+RUN curl -SsL https://downloads.gauge.org/stable | sh
 
 ## emundo User
 RUN addgroup --gid 1101 rancher && \
@@ -45,3 +40,12 @@ RUN addgroup --gid 1101 rancher && \
 
 USER emundo
 WORKDIR /home/emundo
+
+# Install gauge plugins to /home/emundo/.gauge/plugin
+RUN gauge install java && \  
+	gauge install screenshot && \
+	gauge install html-report &&\
+	gauge install xml-report &&\
+	gauge install spectacle
+
+ENV PATH=$HOME/.gauge:$PATH
